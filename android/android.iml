@@ -16,6 +16,7 @@
           <task>generateDebugSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/res" />
       </configuration>
     </facet>
   </component>
@@ -90,5 +91,6 @@
     <orderEntry type="library" exported="" name="gdx-box2d-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="gdx-1.9.5" level="project" />
     <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="library" exported="" name="android-android-25" level="project" />
   </component>
 </module>
