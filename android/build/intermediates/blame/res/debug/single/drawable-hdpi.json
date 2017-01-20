@@ -4,6 +4,10 @@
         "source": "D:\\JailbreakRabbit\\android\\res\\drawable-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "E:\\JailbreakRabbit\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_launcher.png",
+        "source": "E:\\JailbreakRabbit\\android\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\coolc\\Documents\\Documents\\GitHub\\JailbreakRabbit\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_launcher.png",
         "source": "C:\\Users\\coolc\\Documents\\Documents\\GitHub\\JailbreakRabbit\\android\\res\\drawable-hdpi\\ic_launcher.png"
     }

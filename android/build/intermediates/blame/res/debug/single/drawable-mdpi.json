@@ -1,5 +1,9 @@
 [
     {
+        "merged": "E:\\JailbreakRabbit\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
+        "source": "E:\\JailbreakRabbit\\android\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
         "merged": "D:\\JailbreakRabbit\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
         "source": "D:\\JailbreakRabbit\\android\\res\\drawable-mdpi\\ic_launcher.png"
     },
