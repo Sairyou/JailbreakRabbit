@@ -14,7 +14,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public SpriteBatch batch;
 	Texture img; //???
 	private GameStateManager gsm;
-	Hero hero;
 
 	@Override
 	public void create () {
@@ -22,24 +21,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 		gsm = new GameStateManager();
 		gsm.push(new DungeonScreen(gsm));
-		hero = new Hero();
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
-
-		hero.render();
-
 		gsm.render(batch);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		batch.begin();
-		batch.draw(hero.characterForward,(int)hero.x,(int)hero.y);
 		batch.end();
 
 	}

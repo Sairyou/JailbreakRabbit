@@ -22,16 +22,16 @@ public class Hero {
         characterForward = new TextureRegion(characterSpriteSheet,0,0,32,32);
     }
 
-    public void render() {
+    public void update(float dt) {
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            x -= Gdx.graphics.getDeltaTime() * speed;
+            x -= dt * speed;
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            x += Gdx.graphics.getDeltaTime() * speed;
+            x += dt * speed;
 
         if(Gdx.input.isKeyPressed(Input.Keys.UP))
-            y += Gdx.graphics.getDeltaTime() * speed;
+            y += dt * speed;
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            y -= Gdx.graphics.getDeltaTime() * speed;
+            y -= dt * speed;
     }
 
 }

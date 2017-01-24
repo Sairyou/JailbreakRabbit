@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.GameModels.DungeonModel;
 import com.mygdx.game.Tools.GameStateManager;
 import com.mygdx.game.Tools.State;
 
@@ -32,9 +33,12 @@ public class DungeonScreen extends State{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
+    private DungeonModel model;
 
     public DungeonScreen(GameStateManager gsm){
         super(gsm);
+        model = new DungeonModel();
+
         System.out.print("loaded dungeon");
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
@@ -63,7 +67,7 @@ public class DungeonScreen extends State{
     @Override
     public void update(float dt) {
         world.step(dt,6,2); //6,2 are recommended
-
+        model.update(dt);
     }
 
     @Override
@@ -80,6 +84,7 @@ public class DungeonScreen extends State{
 
         //render sprites here
         batch.begin();
+        batch.draw(model.getHero().characterForward,(int)model.getHero().x,(int)model.getHero().y);
         batch.end();
     }
 
