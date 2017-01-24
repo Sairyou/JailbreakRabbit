@@ -68,11 +68,14 @@ public class DungeonScreen extends State{
     public void update(float dt) {
         world.step(dt,6,2); //6,2 are recommended
         model.update(dt);
+        cam.position.x = model.getHero().getPosX();
+        cam.position.y = model.getHero().getPosY();
+        cam.update();
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        cam.update();
+
 
         //box2d stuff
         renderer.setView(cam);

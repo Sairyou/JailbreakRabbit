@@ -33,5 +33,11 @@ public class Hero {
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
             y -= dt * speed;
     }
+    public float getPosX(){
+        return x;
+    }
+    public float getPosY(){
+        return y;
+    }
 
 }
