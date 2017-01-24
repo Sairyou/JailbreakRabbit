@@ -14,7 +14,7 @@ public class Hero {
     public TextureRegion characterForward;
     public float x = 0;
     public float y = 0;
-    public float speed = 100.0f;
+    public float speed = 500.0f;
 
 
     public Hero() {
