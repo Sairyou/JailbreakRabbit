@@ -87,7 +87,7 @@ public class DungeonScreen extends State{
 
         //render sprites here
         batch.begin();
-        batch.draw(model.getHero().characterForward,(int)model.getHero().x,(int)model.getHero().y);
+        batch.draw(model.getHero().getCharacterForward(),(int)model.getHero().getPosX(),(int)model.getHero().getPosY());
         batch.end();
     }
 
