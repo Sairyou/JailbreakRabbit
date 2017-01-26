@@ -30,7 +30,7 @@ public class Hero {
     private float xmax;
     private float y = 0;
     private float ymax;
-    private float speed = 500.0f;
+    private float speed = 120;
     private float width = 32;
     private float height = 32;
 
@@ -77,22 +77,22 @@ public class Hero {
         float yvel = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && x > 0+getTexture().getRegionWidth()/2) {
-            xvel = -120;
+            xvel = -speed;
             previousState = currentState;
             currentState = State.WEST;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && x < xmax+getTexture().getRegionWidth()/2){
-            xvel = 120;
+            xvel = speed;
             previousState = currentState;
             currentState = State.EAST;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)&&y<ymax+getTexture().getRegionHeight()/2) {
-            yvel = 120;
+            yvel = speed;
             previousState = currentState;
             currentState = State.NORTH;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&&y>0+getTexture().getRegionHeight()/2){
-            yvel = -120;
+            yvel = -speed;
             previousState = currentState;
             currentState = State.SOUTH;
         }
