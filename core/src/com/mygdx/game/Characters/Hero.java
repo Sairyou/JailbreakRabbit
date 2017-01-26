@@ -75,31 +75,28 @@ public class Hero {
     public void update(float dt) {
         float xvel = 0;
         float yvel = 0;
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && x > 0) {
-//            x -= dt * speed;
-            xvel = -1*speed*dt;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && x > 0+getTexture().getRegionWidth()/2) {
+            xvel = -120;
             previousState = currentState;
             currentState = State.WEST;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && x < xmax){
-//            x += dt * speed;
-            xvel = 1*speed*dt;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && x < xmax+getTexture().getRegionWidth()/2){
+            xvel = 120;
             previousState = currentState;
             currentState = State.EAST;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)&&y<ymax) {
-//            y += dt * speed;
-            yvel = 1*speed*dt;
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)&&y<ymax+getTexture().getRegionHeight()/2) {
+            yvel = 120;
             previousState = currentState;
             currentState = State.NORTH;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&&y>0){
-//            y -= dt * speed;
-            yvel = -1*speed*dt;
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&&y>0+getTexture().getRegionHeight()/2){
+            yvel = -120;
             previousState = currentState;
             currentState = State.SOUTH;
         }
-        b2body.applyLinearImpulse(new Vector2(xvel,yvel),b2body.getWorldCenter(),true);
+        b2body.setLinearVelocity(xvel,yvel);
 
         //very sloppy but... it stops the player
         if(   !(Gdx.input.isKeyPressed(Input.Keys.DOWN)||
@@ -108,6 +105,7 @@ public class Hero {
                 Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ){
             b2body.setLinearVelocity(0,0);
         }
+
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
 
