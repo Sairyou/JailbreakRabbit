@@ -37,11 +37,11 @@ public class Hero {
         currentState = previousState = State.SOUTH;
 
         characterSpriteSheet = new Texture(Gdx.files.internal("face_w2_2d.png"));
-        int spritesize = 32;
+
         characterSouth = new TextureRegion(characterSpriteSheet,0,0,32,32);
-        characterEast = new TextureRegion(characterSpriteSheet,0,spritesize*2,32,32);
-        characterNorth = new TextureRegion(characterSpriteSheet,0,spritesize*3,32,32);
-        characterWest = new TextureRegion(characterSpriteSheet,0,spritesize,32,32);
+        characterEast = new TextureRegion(characterSpriteSheet,0,32*2,32,32);
+        characterNorth = new TextureRegion(characterSpriteSheet,0,32*3,32,32);
+        characterWest = new TextureRegion(characterSpriteSheet,0,32,32,32);
 
         xmax = 640- characterSouth.getRegionWidth(); //640 is the size of the map this will need to be changed
         ymax = 640- characterSouth.getRegionHeight(); //same here
