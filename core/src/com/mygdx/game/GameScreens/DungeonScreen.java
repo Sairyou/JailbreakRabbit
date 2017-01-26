@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -87,7 +86,7 @@ public class DungeonScreen extends State{
 
         //render sprites here
         batch.begin();
-        batch.draw(model.getHero().getCharacterForward(),(int)model.getHero().getPosX(),(int)model.getHero().getPosY());
+        batch.draw(model.getHero().getTexture(),(int)model.getHero().getPosX(),(int)model.getHero().getPosY());
         batch.end();
     }
 
