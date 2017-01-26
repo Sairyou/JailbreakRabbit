@@ -3,8 +3,13 @@ package com.mygdx.game.Characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -26,13 +31,17 @@ public class Hero {
     private float y = 0;
     private float ymax;
     private float speed = 500.0f;
+    private float width = 32;
+    private float height = 32;
 
     private World world;
     private Body b2body;
 
 
 
-    public Hero() {
+    public Hero(World world) {
+
+
 
         currentState = previousState = State.SOUTH;
 
@@ -46,37 +55,66 @@ public class Hero {
         xmax = 640- characterSouth.getRegionWidth(); //640 is the size of the map this will need to be changed
         ymax = 640- characterSouth.getRegionHeight(); //same here
 
-    }
-    public void defineHero(World world){
+        this.world = world;
+        defineHero(characterSouth.getRegionWidth(), characterSouth.getRegionHeight(), world);
 
     }
 
+    public void defineHero(float width, float height, World world){
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(x+width/2,y+height/2);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+        FixtureDef fdef =  new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width/2, height/2);
+        fdef.shape = shape;
+        b2body.createFixture(fdef);
+        //shape.dispose();
+    }
     public void update(float dt) {
+        float xvel = 0;
+        float yvel = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && x > 0) {
-            x -= dt * speed;
+//            x -= dt * speed;
+            xvel = -1*speed*dt;
             previousState = currentState;
             currentState = State.WEST;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && x < xmax){
-            x += dt * speed;
+//            x += dt * speed;
+            xvel = 1*speed*dt;
             previousState = currentState;
             currentState = State.EAST;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)&&y<ymax) {
-            y += dt * speed;
+//            y += dt * speed;
+            yvel = 1*speed*dt;
             previousState = currentState;
             currentState = State.NORTH;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&&y>0){
-            y -= dt * speed;
+//            y -= dt * speed;
+            yvel = -1*speed*dt;
             previousState = currentState;
             currentState = State.SOUTH;
         }
-        //update facing direction.
-        switch(currentState){
-            case NORTH:
+        b2body.applyLinearImpulse(new Vector2(xvel,yvel),b2body.getWorldCenter(),true);
 
+        //very sloppy but... it stops the player
+        if(   !(Gdx.input.isKeyPressed(Input.Keys.DOWN)||
+                Gdx.input.isKeyPressed(Input.Keys.UP)||
+                Gdx.input.isKeyPressed(Input.Keys.LEFT)||
+                Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ){
+            b2body.setLinearVelocity(0,0);
         }
+        x = b2body.getPosition().x;
+        y = b2body.getPosition().y;
+
+    }
+    public void render(SpriteBatch batch){
+        batch.draw(getTexture(),x-width/2,y-height/2);
+
     }
     public TextureRegion getTexture(){
         switch(currentState){

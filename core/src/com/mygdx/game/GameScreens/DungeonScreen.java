@@ -36,7 +36,6 @@ public class DungeonScreen extends State{
 
     public DungeonScreen(GameStateManager gsm){
         super(gsm);
-        model = new DungeonModel();
 
         System.out.print("loaded dungeon");
         float width = Gdx.graphics.getWidth();
@@ -45,6 +44,7 @@ public class DungeonScreen extends State{
         //set up box2d stuff
         world = new World(new Vector2(0,0), true); // World ->(Vect2 (forces), BOOL don't calculate bodies at rest)
         b2dr = new Box2DDebugRenderer();
+        model = new DungeonModel(world);
 
 
         //load the tile map
@@ -54,7 +54,7 @@ public class DungeonScreen extends State{
         //set up the camera
         cam = new OrthographicCamera();
         cam.setToOrtho(false, width, height);
-
+        cam.zoom *=.5;
 
     }
 
@@ -65,7 +65,7 @@ public class DungeonScreen extends State{
 
     @Override
     public void update(float dt) {
-        world.step(dt,6,2); //6,2 are recommended
+        world.step(1/60f,6,2); //6,2 are recommended
         model.update(dt);
         cam.position.x = model.getHero().getPosX();
         cam.position.y = model.getHero().getPosY();
@@ -86,7 +86,7 @@ public class DungeonScreen extends State{
 
         //render sprites here
         batch.begin();
-        batch.draw(model.getHero().getTexture(),(int)model.getHero().getPosX(),(int)model.getHero().getPosY());
+        model.getHero().render(batch);
         batch.end();
     }
 
