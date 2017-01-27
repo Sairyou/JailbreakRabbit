@@ -1,6 +1,7 @@
 package com.mygdx.game.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,9 +10,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameModels.DungeonModel;
 import com.mygdx.game.Tools.GameStateManager;
 import com.mygdx.game.Tools.State;
+
+import static com.mygdx.game.MyGdxGame.PPM;
+import static com.mygdx.game.MyGdxGame.V_HEIGHT;
+import static com.mygdx.game.MyGdxGame.V_WIDTH;
 
 /**
  * Created by Clifford Hill on 1/24/2017.
@@ -28,16 +35,17 @@ public class DungeonScreen extends State{
     private Box2DDebugRenderer b2dr;
 
     private OrthographicCamera cam;
+    private Viewport gamePort;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+
 
     private DungeonModel model;
 
     public DungeonScreen(GameStateManager gsm){
         super(gsm);
 
-        System.out.print("loaded dungeon");
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
@@ -49,13 +57,14 @@ public class DungeonScreen extends State{
 
         //load the tile map
         map = new TmxMapLoader().load("testmap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map,1/PPM); //note here is what changes the tile map size
 
         //set up the camera
         cam = new OrthographicCamera();
         cam.setToOrtho(false, width, height);
-        cam.zoom *=.5;
-
+        gamePort = new FitViewport(V_WIDTH / PPM, V_HEIGHT / PPM, cam);
+        cam.position.set(gamePort.getWorldWidth() / 2/PPM, gamePort.getWorldHeight() / 2/PPM, 0);
+//        cam.zoom *= .05;
     }
 
     @Override
@@ -70,6 +79,12 @@ public class DungeonScreen extends State{
         cam.position.x = model.getHero().getPosX();
         cam.position.y = model.getHero().getPosY();
         cam.update();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+            cam.zoom *=.5;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            cam.zoom /=.5;
+        }
     }
 
     @Override
@@ -84,12 +99,15 @@ public class DungeonScreen extends State{
         //make it so the camera projection is...? it works
         batch.setProjectionMatrix(cam.combined);
 
-        //render sprites here
+//        render sprites here
         batch.begin();
         model.getHero().render(batch);
         batch.end();
     }
 
+    public void resize(int width, int height){
+        gamePort.update(width,height);
+    }
     @Override
     public void dispose() {
 

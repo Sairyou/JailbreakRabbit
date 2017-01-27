@@ -15,6 +15,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	public SpriteBatch batch;
 	Texture img; //???
 	private GameStateManager gsm;
+	public static final int V_WIDTH = 1900;
+	public static final int V_HEIGHT = 1200;
+	public static final float PPM = 100; //pixles per meter
 
 	@Override
 	public void create () {

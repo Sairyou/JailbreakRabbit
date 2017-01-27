@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import static com.mygdx.game.MyGdxGame.PPM;
+
 /**
  * Created by veriwind on 1/24/17.
  */
@@ -30,7 +32,7 @@ public class Hero {
     private float xmax;
     private float y = 0;
     private float ymax;
-    private float speed = 120;
+    private float speed = 2400;
     private float width = 32;
     private float height = 32;
 
@@ -62,12 +64,12 @@ public class Hero {
 
     public void defineHero(float width, float height, World world){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(x+width/2,y+height/2);
+        bdef.position.set(x+width/2/PPM,y+height/2/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef =  new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width/2, height/2);
+        shape.setAsBox(width/2/PPM, height/2/PPM);
         fdef.shape = shape;
         b2body.createFixture(fdef);
         //shape.dispose();
@@ -111,7 +113,7 @@ public class Hero {
 
     }
     public void render(SpriteBatch batch){
-        batch.draw(getTexture(),x-width/2,y-height/2);
+        batch.draw(getTexture(),x-width/2/PPM,y-height/2/PPM);
 
     }
     public TextureRegion getTexture(){
