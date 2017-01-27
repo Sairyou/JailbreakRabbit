@@ -57,7 +57,7 @@ public class DungeonScreen extends State{
 
         //load the tile map
         map = new TmxMapLoader().load("testmap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1/PPM); //note here is what changes the tile map size
+        renderer = new OrthogonalTiledMapRenderer(map,1); //note here is what changes the tile map size
 
         //set up the camera
         cam = new OrthographicCamera();
