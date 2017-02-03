@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,15 +16,18 @@ public class MyGdxGame extends ApplicationAdapter {
 	public SpriteBatch batch;
 	Texture img; //???
 	private GameStateManager gsm;
+	private OrthographicCamera cam;
 	public static final int V_WIDTH = 1900;
 	public static final int V_HEIGHT = 1200;
 	public static final float PPM = 100; //pixles per meter
 
 	@Override
 	public void create () {
+		cam = new OrthographicCamera();
+		cam.setToOrtho(false,V_WIDTH,V_HEIGHT);
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		gsm = new GameStateManager();
+		gsm = new GameStateManager(this);
 		gsm.push(new DungeonScreen(gsm));
 	}
 

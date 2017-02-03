@@ -1,6 +1,7 @@
 package com.mygdx.game.Tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.Stack;
 
@@ -10,9 +11,11 @@ import java.util.Stack;
  */
 public class GameStateManager {
     private Stack<State> states;
-
-    public GameStateManager () {
+    private MyGdxGame game;
+    public GameStateManager (MyGdxGame game) {
+        this.game = game;
         states = new Stack<State>();
+
     }
 
     public void push(State state){

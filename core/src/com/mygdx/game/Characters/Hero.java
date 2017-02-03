@@ -78,22 +78,22 @@ public class Hero {
         float xvel = 0;
         float yvel = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && x > 0+getTexture().getRegionWidth()/2) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ){//&& x > 0+getTexture().getRegionWidth()/2) {
             xvel = -speed;
             previousState = currentState;
             currentState = State.WEST;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && x < xmax+getTexture().getRegionWidth()/2){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){//&& x < xmax+getTexture().getRegionWidth()/2){
             xvel = speed;
             previousState = currentState;
             currentState = State.EAST;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)&&y<ymax+getTexture().getRegionHeight()/2) {
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) ){//&&y<ymax+getTexture().getRegionHeight()/2) {
             yvel = speed;
             previousState = currentState;
             currentState = State.NORTH;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&&y>0+getTexture().getRegionHeight()/2){
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) ){//&&y>0+getTexture().getRegionHeight()/2){
             yvel = -speed;
             previousState = currentState;
             currentState = State.SOUTH;
@@ -113,8 +113,10 @@ public class Hero {
 
     }
     public void render(SpriteBatch batch){
-        batch.draw(getTexture(),x-width/2/PPM,y-height/2/PPM);
-
+        batch.begin();
+        batch.draw(getTexture(),b2body.getPosition().x,b2body.getPosition().y);
+//        batch.draw(getTexture(),x-width/2,y-height/2); //ppm?
+        batch.end();
     }
     public TextureRegion getTexture(){
         switch(currentState){

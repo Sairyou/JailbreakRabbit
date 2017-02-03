@@ -33,12 +33,13 @@ public class DungeonScreen extends State{
 
     private World world;
     private Box2DDebugRenderer b2dr;
+    private OrthographicCamera b2dcam;
 
     private OrthographicCamera cam;
     private Viewport gamePort;
 
     private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
+    private OrthogonalTiledMapRenderer tMRenderer;
 
 
     private DungeonModel model;
@@ -52,17 +53,21 @@ public class DungeonScreen extends State{
         //set up box2d stuff
         world = new World(new Vector2(0,0), true); // World ->(Vect2 (forces), BOOL don't calculate bodies at rest)
         b2dr = new Box2DDebugRenderer();
+        b2dcam = new OrthographicCamera();
+        b2dcam.setToOrtho(false, V_WIDTH / PPM, V_HEIGHT / PPM);
+
         model = new DungeonModel(world);
+
 
 
         //load the tile map
         map = new TmxMapLoader().load("testmap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1); //note here is what changes the tile map size
+        tMRenderer = new OrthogonalTiledMapRenderer(map); //note here is what changes the tile map size
 
         //set up the camera
         cam = new OrthographicCamera();
         cam.setToOrtho(false, width, height);
-        gamePort = new FitViewport(V_WIDTH / PPM, V_HEIGHT / PPM, cam);
+        gamePort = new FitViewport(V_WIDTH, V_HEIGHT, cam);
         cam.position.set(gamePort.getWorldWidth() / 2/PPM, gamePort.getWorldHeight() / 2/PPM, 0);
 //        cam.zoom *= .05;
     }
@@ -90,19 +95,18 @@ public class DungeonScreen extends State{
     @Override
     public void render(SpriteBatch batch) {
 
+        //render tile map
+        tMRenderer.setView(cam);
+        tMRenderer.render();
 
         //box2d stuff
-        renderer.setView(cam);
-        renderer.render();
-        b2dr.render(world, cam.combined);
+        b2dr.render(world, b2dcam.combined);
 
         //make it so the camera projection is...? it works
         batch.setProjectionMatrix(cam.combined);
 
 //        render sprites here
-        batch.begin();
         model.getHero().render(batch);
-        batch.end();
     }
 
     public void resize(int width, int height){
