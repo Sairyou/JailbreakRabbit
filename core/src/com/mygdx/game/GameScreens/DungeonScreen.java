@@ -88,7 +88,7 @@ public class DungeonScreen extends State{
             cam.zoom *=.5;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
-            cam.zoom /=.5;
+            cam.zoom /=.5;//tada
         }
     }
 
